@@ -54,32 +54,32 @@ if (!exists("NEI") | !exists("SCC"))
 #   Which have seen increases in emissions from 1999-2008? 
 #   Use the ggplot2 plotting system to make a plot answer this question.
 
-# # Aggregate the data emissions for each year
-# sumBaltimoreCityNEI <- subset(NEI, fips == "24510")
-# sumBaltimoreCityNEI <- sumBaltimoreCityNEI[c("Emissions", "type", "year")]
-# sumBaltimoreCityNEI <- aggregate(x = sumBaltimoreCityNEI, 
-#                                  by = list(sumBaltimoreCityNEI$type, 
-#                                            sumBaltimoreCityNEI$year),  
-#                                  FUN = function(x){sum(as.numeric(x))})
-# 
-# sumBaltimoreCityNEI$type <- sumBaltimoreCityNEI$Group.1
-# sumBaltimoreCityNEI$year <- sumBaltimoreCityNEI$Group.2
-# sumBaltimoreCityNEI$Group.1 <- NULL
-# sumBaltimoreCityNEI$Group.2 <- NULL
-# 
-# # use the png device, set size 1045 x 405
-# png ("plot3.png",
-#      width = 1045,
-#      height = 405,
-#      units = "px")
-# 
-# g <- qplot(year, 
-#            Emissions, 
-#            data = sumBaltimoreCityNEI, 
-#            facets = .~type) 
-# print (   g + 
-#           geom_smooth(method = "lm") +
-#           labs(title = "Emissions in Baltimore City\nby Type") + 
-#           labs(x = "Year", y = paste("Emissions", expression(PM[2.5]), "(tons)")))
-# 
-# dev.off()
+# Aggregate the data emissions for each year
+sumBaltimoreCityNEI <- subset(NEI, fips == "24510")
+sumBaltimoreCityNEI <- sumBaltimoreCityNEI[c("Emissions", "type", "year")]
+sumBaltimoreCityNEI <- aggregate(x = sumBaltimoreCityNEI, 
+                                 by = list(sumBaltimoreCityNEI$type, 
+                                           sumBaltimoreCityNEI$year),  
+                                 FUN = function(x){sum(as.numeric(x))})
+
+sumBaltimoreCityNEI$type <- sumBaltimoreCityNEI$Group.1
+sumBaltimoreCityNEI$year <- sumBaltimoreCityNEI$Group.2
+sumBaltimoreCityNEI$Group.1 <- NULL
+sumBaltimoreCityNEI$Group.2 <- NULL
+
+# use the png device, set size 1045 x 405
+png ("plot3.png",
+     width = 1045,
+     height = 405,
+     units = "px")
+
+g <- qplot(year, 
+           Emissions, 
+           data = sumBaltimoreCityNEI, 
+           facets = .~type) 
+print (   g + 
+          geom_smooth(method = "lm") +
+          labs(title = "Emissions in Baltimore City\nby Type") + 
+          labs(x = "Year", y = paste("Emissions", expression(PM[2.5]), "(tons)")))
+
+dev.off()
